@@ -15,7 +15,7 @@ The format of api key is like `sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ## How to change the predefined information learned by ChatGPT
 If you want to change the predefined text of chatgpt please change in `./script.js`.
-`var predefined_text="Can you imitate that you are Pengcheng Xu?...."`lies in around line 10. 
+You can change the variable `var predefined_text="Can you imitate that you are Pengcheng Xu?...."` which lies in around line 10. 
 
 Change the content of it and you will make chatgpt learn the thing you defined in advance!
 
