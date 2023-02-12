@@ -86,7 +86,7 @@ function waitAndResponce(inputText) {
             break;
 
         case "education":
-            sendTextMessage("I am currently pusuing Master's degree in Computer Engineering from University of Illinois Urbana - Champaign<br>Graduation Year : 2023<br><br>I have completed my Bachelor's degree from Shanghai Jiao Tong University<br>Graduation Year:2022<br>Result:86.06%<br><br>");
+            sendTextMessage("I am currently pusuing Master's degree in Computer Engineering from University of Illinois Urbana - Champaign<br>Graduation Year : 2023<br><br>I have completed my Bachelor's degree from Shanghai Jiao Tong University<br>Graduation Year:2022<br><br><br>");
             break;
 
         case "address":
