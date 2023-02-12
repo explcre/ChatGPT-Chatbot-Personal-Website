@@ -1,7 +1,9 @@
 # Attractive Advance Portfolio Website
 ## _Chatting Bot Like Design (Whatsapp like interface)_
 
-Now it supports chatgpt! I let chatgpt imitate me and let it know my information.
+Now it supports chatgpt! 
+
+I let chatgpt imitate me and let it know my information.
 To use chatgpt function,   change the API key in `script.js`.
 `var OPENAI_API_KEY = "";` lies in around line 23.
 
