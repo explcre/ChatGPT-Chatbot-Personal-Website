@@ -18,7 +18,7 @@ Change the content of it and you will make chatgpt learn the thing you defined i
 
 ## _Chatting Bot Like Design (Whatsapp like interface)_
 - [Running Site](https://explcre.github.io/chat)
-[![N|Solid](images/demo.gif)](https://explcre.github.io/chat)
+[![N|Solid](images/demo.gif)](https://explcre.github.io/ChatGPT-Personalized-Portfolio-Website)
 
 ## Technologies Used
 
