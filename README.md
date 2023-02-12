@@ -4,10 +4,13 @@
 Now it supports chatgpt!
 ## How to deploy it with openai API key
 I let chatgpt know my information and let it imitate me.
-To use chatgpt function,   change the API key in `./script.js`.
+
+To use chatgpt function by yourself based on this repo,  change the API key in `./script.js`.
 `var OPENAI_API_KEY = "";` lies in around line 23.
 
 You can get the key from https://platform.openai.com/account/api-keys
+
+The format of api key is like `sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx`
 
 
 ## How to change the predefined information learned by ChatGPT
