@@ -8,7 +8,7 @@ To use chatgpt function,   change the API key in `./script.js`.
 `var OPENAI_API_KEY = "";` lies in around line 23.
 
 You can get the key from https://platform.openai.com/account/api-keys
-- [Running Site](https://explcre.github.io/chat)
+
 
 ## How to change the predefined information learned by ChatGPT
 If you want to change the predefined text of chatgpt please change in `./script.js`.
@@ -17,6 +17,7 @@ If you want to change the predefined text of chatgpt please change in `./script.
 Change the content of it and you will make chatgpt learn the thing you defined in advance!
 
 ## _Chatting Bot Like Design (Whatsapp like interface)_
+- [Running Site](https://explcre.github.io/chat)
 [![N|Solid](images/demo.gif)](https://explcre.github.io/chat)
 
 ## Technologies Used
