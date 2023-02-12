@@ -18,7 +18,7 @@ Change the content of it and you will make chatgpt learn the thing you defined i
 
 ## _Chatting Bot Like Design (Whatsapp like interface)_
 If you want to see full function, you can go to: 
-- [Running Site: https://explcre.github.io/chat](https://explcre.github.io/chat)
+- [Running Site: https://explcre.github.io/mychat](https://explcre.github.io/mychat)
 
 Notice that the website above is not open-sourced. But if you add your openai api key in this code repo locally, you can see the similar effect. (For safety reason,openai api key in not included in code of this repo)
 
