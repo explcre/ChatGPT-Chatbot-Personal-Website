@@ -1,8 +1,13 @@
 # Attractive Advance Portfolio Website
 ## _Chatting Bot Like Design (Whatsapp like interface)_
 
+Now it supports chatgpt! I let chatgpt imitate me and let it know my information.
+To use chatgpt function,   change the API key in `script.js`.
+`var OPENAI_API_KEY = "";` lies in around line 23.
 
+You can get the key from https://platform.openai.com/account/api-keys
 - [Running Site](https://explcre.github.io/chat)
+
 
 [![N|Solid](images/demo.gif)](https://explcre.github.io/chat)
 
