@@ -1,9 +1,7 @@
 # ChatGPT Assisted Personalied Attractive Advance Portfolio Website
-## _Chatting Bot Like Design (Whatsapp like interface)_
-
-Now it supports chatgpt! 
 
 ## _ChatGPT API now connected and can imitate me_
+Now it supports chatgpt!
 ## How to deploy it with openai API key
 I let chatgpt know my information and let it imitate me.
 To use chatgpt function,   change the API key in `./script.js`.
@@ -18,6 +16,7 @@ If you want to change the predefined text of chatgpt please change in `./script.
 
 Change the content of it and you will make chatgpt learn the thing you defined in advance!
 
+## _Chatting Bot Like Design (Whatsapp like interface)_
 [![N|Solid](images/demo.gif)](https://explcre.github.io/chat)
 
 ## Technologies Used
