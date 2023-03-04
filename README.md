@@ -1,4 +1,4 @@
-# ChatGPT Chatbot Assisted Personalied Attractive Advance Personal Website
+# ChatGPT API assisted Chatbot: an Attractive Advance Personal Website
 
 ## _ChatGPT API now connected and can imitate me_
 Now it supports ChatGPT!
