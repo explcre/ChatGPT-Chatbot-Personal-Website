@@ -1,7 +1,7 @@
-# ChatGPT Assisted Personalied Attractive Advance Portfolio Website
+# ChatGPT Chatbot Assisted Personalied Attractive Advance Personal Website
 
 ## _ChatGPT API now connected and can imitate me_
-Now it supports chatgpt!
+Now it supports ChatGPT!
 ## How to deploy it with openai API key
 I let chatgpt know my information and let it imitate me.
 
