@@ -1,4 +1,5 @@
 # ChatGPT API assisted Chatbot: an Attractive Advance Personal Website
+ If you think it's cool or want to use it, please star it! Thank you~
 
 ## _ChatGPT API now connected and can imitate me_
 Now it supports ChatGPT!
