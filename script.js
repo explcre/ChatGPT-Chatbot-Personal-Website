@@ -1,15 +1,16 @@
 var audio = new Audio('assets/sentmessage.mp3');
 var contactString = "<div class='social'> <a target='_blank' href='tel:+1 2175501337 or +86 18930386735'> <div class='socialItem' id='call'><img class='socialItemI' src='images/phone.svg'/><label class='number'>+1 2175501337</label></div> </a> <a href='mailto:px6@illinois.edu'> <div class='socialItem'><img class='socialItemI' src='images/gmail.svg' alt=''></div> </a> <a target='_blank' href='https://github.com/explcre'> <div class='socialItem'><img class='socialItemI' src='images/github.svg' alt=''></div> </a> <a target='_blank' href='https://wa.me/'> <div class='socialItem'><img class='socialItemI' src='images/whatsapp.svg' alt=''></div> </a> <a target='_blank' href='https://t.me/'> <div class='socialItem'><img class='socialItemI' src='images/telegram.svg' alt=''></div> </a> <a target='_blank' href='https://instagram.com/xpc_1025'> <div class='socialItem'><img class='socialItemI' src='images/instagram.svg' alt=''> </div> </a> <a href='https://www.linkedin.com/in/pengcheng-xu-ryan/' target='_blank' rel='noopener noreferrer'> <div class='socialItem'><img class='socialItemI' src='images/linkedin.svg' alt=''></div> </a> </div>";
 var resumeString = "<img src='images/resumeThumbnail.png' class='resumeThumbnail'><div class='downloadSpace'><div class='pdfname'><img src='images/pdf.png'><label>resume_Pengcheng_Xu.pdf</label></div><a href='assets/resume_Pengcheng_Xu.pdf' download='resume_Pengcheng_Xu.pdf'><img class='download' src='images/downloadIcon.svg'></a></div>";
+var githubString = "<img src='images/githubThumbnail.png' class='githubThumbnail'>";
 var addressString = "<div class='mapview'><iframe src='https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d5411.448529658408!2d-88.228491!3d40.111323!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880cd0eb0df454b5%3A0xe7ba4e7c081a6483!2z6IGU5ZCI56S85aCC!5e1!3m2!1sen-US!2sus!4v1676164166623!5m2!1szh-CN!2sus' class='map'></iframe></div><label class='add'><address><br>Urbana, Illinois, United States 61801</address>";
 const openai = require("openai");
-openai.apiKey = ""
-
+var globalFirstTime=true;
 function SendChatGPT(text) {
     //sendTextMessage(text);
-    var predefined_text="Can you imitate that you are Pengcheng Xu? Your Chinese name is 徐鹏程. You are born in 1999, Oct, 25th. You live in Shanghai for the first twenty-two years. You are now pursuing a master's degree in University of Illinois Champaign. Your major is Electrical and Computer Engineering. You are expected to graduate in December 2023.You have complete your Bachelor's degree from University of Michigan - Shanghai Jiao Tong University Joint institute, also major in ECE. You love singing, playing the guitar, working out, play basketball, tennis, swimming and everything about science and technology. You admire Richard Feynman and Elon Musk. As for programming language, You are good at C/C++, Python. You also have project experience in MATLAB, Verilog, Java,R,Javascript. You are interested in applied machine learning for healthcare or science or computer systems, distributed systems and distributed learning, computer architecture.Now I will say: ";
+    var predefined_text="Can you imitate that you are Pengcheng Xu? Your Chinese name is 徐鹏程. You are born in 1999, Oct, 25th. You live in Shanghai for the first twenty-two years. You are now pursuing a master's degree in University of Illinois Urbana-Champaign. Your major is Electrical and Computer Engineering. You are expected to graduate in December 2023.You have complete your Bachelor's degree from University of Michigan - Shanghai Jiao Tong University Joint institute, also major in ECE. You love singing, playing the guitar, working out, play basketball, tennis, swimming, reading, watching films, and everything about science and technology. You admire Richard Feynman and Elon Musk. As for programming language, You are good at C/C++, Python. You also have project experience in MATLAB, Verilog, Java,R,Javascript. You are interested in applied machine learning for healthcare or science or computer systems, distributed systems and distributed learning, computer architecture. Your mobile phone number is +1 2175501337. Your email is px6@illinois.edu.  ... (If I say something in English, please reply me in English.) Now I will say: ";
     var sQuestion = predefined_text+text;//txtMsg.value;
     //sendTextMessage(sQuestion);
+    var sModel = "gpt-3.5-turbo-0301"//"text-davinci-003";//"gpt-3.5-turbo-0301"//selModel.value;// "text-davinci-003";
     if (sQuestion == "") {
         alert("Type in your question!");
         txtMsg.focus();
@@ -17,12 +18,30 @@ function SendChatGPT(text) {
     }
     //sendTextMessage("1");
     var oHttp = new XMLHttpRequest();
-    oHttp.open("POST", "https://api.openai.com/v1/completions");
+    if(sModel === "text-davinci-003"){
+        oHttp.open("POST", "https://api.openai.com/v1/completions");//v1/completions   //completions
+    }else if(sModel ==="gpt-3.5-turbo-0301"){
+        oHttp.open("POST", "https://api.openai.com/v1/chat/completions");//v1/completions   //completionss
+    }
+    
     oHttp.setRequestHeader("Accept", "application/json");
     oHttp.setRequestHeader("Content-Type", "application/json");
-    var OPENAI_API_KEY = "";
+    var OPENAI_API_KEY ="";
     oHttp.setRequestHeader("Authorization", "Bearer " + OPENAI_API_KEY)
     //sendTextMessage("2");
+    // Get the user's IP address
+    var userIP;
+    fetch('https://api.ipify.org?format=json')
+        .then(response => response.json())
+        .then(data => {
+        userIP = data.ip;
+        // Send the IP address and message to your server
+        //sendTextMessage("User IP:" +  userIP);//here send user IP
+        })
+        .catch(error => {
+        console.error('Error getting user IP:', error);
+        });
+    
     oHttp.onreadystatechange = function () {
         if (oHttp.readyState === 4) {
             //sendTextMessage("oHttp.readyState === 4");
@@ -42,8 +61,15 @@ function SendChatGPT(text) {
             if (oJson.error && oJson.error.message) {
                 //txtOutput.value += "Error: " + oJson.error.message;
                 sendTextMessage("Error:" + oJson.error.message);
-            } else if (oJson.choices && oJson.choices[0].text) {
-                var s = oJson.choices[0].text;
+            } else if (oJson.choices && ((sModel==="text-davinci-003"&& oJson.choices[0].text)||
+                (sModel==="gpt-3.5-turbo-0301" && oJson.choices[0]))) {
+                if(sModel==="text-davinci-003"){
+                    var s = oJson.choices[0].text;
+                }else if(sModel==="gpt-3.5-turbo-0301"){
+                    var s = oJson.choices[0].message.content;//.message.content;
+                    //globalTextData.messages.push({"role":"assistant","content":s});
+                }
+                
                 var selLang="en-US";
                 /*if (selLang.value != "en-US") {
                     var a = s.split("?\n");
@@ -52,9 +78,14 @@ function SendChatGPT(text) {
                     }
                 }*/
 
-                if (s == "") s = "No response";
+                if (s === "") s = "No response";
                 //sendTextMessage("2.5 in the loop");
                 sendTextMessage(s);
+                // Get the current date and time
+                var now = new Date();
+                // Format the date and time as desired
+                var dateTime = now.toLocaleString();
+                sendMessageToServer(text,s, userIP,dateTime);
                 //txtOutput.value += "Chat GPT: " + s;
                 TextToSpeech(s);
             }            
@@ -64,28 +95,151 @@ function SendChatGPT(text) {
 
     };
     //sendTextMessage("3");
-    var sModel = "text-davinci-003"//selModel.value;// "text-davinci-003";
+    
     var iMaxTokens = 1024;
     var sUserId = "1";
     var dTemperature = 0.5;    
     //sendTextMessage("4");
-    var data = {
-        model: sModel,
-        prompt: sQuestion,
-        max_tokens: iMaxTokens,
-        user: sUserId,
-        temperature:  dTemperature,
-        frequency_penalty: 0.0, //Number between -2.0 and 2.0  Positive value decrease the model's likelihood to repeat the same line verbatim.
-        presence_penalty: 0.0,  //Number between -2.0 and 2.0. Positive values increase the model's likelihood to talk about new topics.
-        stop: ["#", ";"] //Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop sequence.
+    if (sModel==="gpt-3.5-turbo-0301"){
+        if(true){
+            var data={
+                model: sModel,
+                messages:[{"role": "system", "content": predefined_text},
+                          {"role": "user", "content": text}]
+            };
+            //globalTextData.model=sModel;
+            //globalTextData.messages.push({"role": "user", "content": predefined_text+text});
+            //globalTextData=data;
+        }else{
+            //data.messages.append({"role":"assistant","content":text});
+            //globalTextData.messages.push({"role":"user","content":text});
+        }
+        
+        //data.messages.append({"role":"assistant","content":sQuestion});
+    }else if(sModel==="text-davinci-003"){
+        var data={//var data=
+            model: sModel,
+            prompt: sQuestion,
+            max_tokens: iMaxTokens,
+            user: sUserId,
+            temperature:  dTemperature,
+            frequency_penalty: 0.0, //Number between -2.0 and 2.0  Positive value decrease the model's likelihood to repeat the same line verbatim.
+            presence_penalty: 0.0,  //Number between -2.0 and 2.0. Positive values increase the model's likelihood to talk about new topics.
+            stop: ["#", ";"], //Up to 4 sequences where the API will stop generating further tokens. The returned text will not contain the stop sequence.
+            //messages:[{"role": "user", "content": sQuestion}]
+        }
     }
+
+    
     //sendTextMessage("5");
+
     oHttp.send(JSON.stringify(data));
     //sendTextMessage("6");
     /*if (txtOutput.value != "") txtOutput.value += "\n";
     txtOutput.value += "Me: " + sQuestion;
     txtMsg.value = "";*/
     //sendTextMessage("7");
+    //return globalTextData;
+}
+
+function sendMessageToServer(inputText,answeredText, userIP,dateTime) {
+    //sendTextMessage("in sendMessageToServer()");
+    var xhr = new XMLHttpRequest();
+    var serverIP="127.0.0.1";//"68.180.36.23"//'127.0.0.1';//"68.180.36.23"//'68.180.36.27'
+    var serverPort='9999';//'9999'
+    xhr.open('POST', 'http://'+serverIP+':'+serverPort, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    //sendTextMessage("setrequest done");
+    xhr.send(JSON.stringify({
+      message: inputText,
+      answer: answeredText,
+      userIP: userIP,
+      port:serverPort,
+      time:dateTime
+    }));
+    var body=JSON.stringify({
+        message: inputText,
+        answer: answeredText,
+        userIP: userIP,
+        port:serverPort,
+        time:dateTime
+      });
+    //window.open('mailto:759502002@qq.com?subject=subject&body='+body);
+        // 附上nodejs发邮件的示例代码
+    //const sendmail = require('sendmail')();
+    const nodemailer = require('nodemailer');
+    sendMail(JSON.stringify({
+        message: inputText,
+        answer: answeredText,
+        userIP: userIP,
+        port:serverPort,
+        time:dateTime
+      }));
+    
+
+    /*sendTextMessage(JSON.stringify({
+        message: inputText,
+        answer: answeredText,
+        userIP: userIP,
+        port:serverPort,
+        time:dateTime
+      }));*/
+}
+
+const nodemailer = require('nodemailer');
+    async function sendMail(text){
+      var user = '759502002@qq.com' //自己的邮箱
+      var pass = 'xyumvidqtuosbbbb' //POP3//'aongczglbxwlbcef' //qq邮箱的授权码
+      var receiver = '759502002@163.com' //目标邮箱
+      // 创建 nodemailer 配置
+        let transporter = nodemailer.createTransport({
+            //支持列表： https://nodemailer.com/smtp/well-known/
+            service: 'QQ', // 老严用的是 QQ
+            port: 465, // SMTP 端口 
+            secureConnection: true, 
+            auth: {
+                user: user,
+                pass: pass, 
+            }
+        });
+      let mailOptions = {
+        from: user,
+        to: receiver,
+        subject: 'chatgpt-message',
+        text:text
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('successfully sent email ID:', info.messageId);
+    });
+    }
+
+function addPostParam(sParams, sParamName, sParamValue) {
+
+    if (sParams.length > 0) {
+
+       sParams += "&";
+
+}
+
+    return sParams + encodeURIComponent(sParamName) + "=" + encodeURIComponent(sParamValue);
+
+}
+
+ 
+function trySendMessageToServer(sParams, sParamName, sParamValue){
+    var sParams = "";
+
+    sParams = addPostParam(sParams, "gender", "女");
+
+    sParams = addPostParam(sParams, "age", "25");
+
+    oRequest.open("open", "test.jsp", false);
+
+    oRequest.send(sParams);
+
 }
 
 function startFunction() {
@@ -159,7 +313,7 @@ function waitAndResponce(inputText) {
     switch (inputText.toLowerCase().trim()) {
         case "intro":
             setTimeout(() => {
-                sendTextMessage("Hello there 👋🏻,<br><br>My name is <span class='bold'><a class='alink'>Pengcheng Xu</a>.</span><br><br>I am a Computer Engineering student at <span class='bold'>University of Illinois - Urbana Champaign👨🏻‍💻📚</span><br><br>I am eager to hear about potential career opportunities, so I would be pleased to chat about job openings in the science and engineering sphere.<br><br>Send <span class='bold'>'help'</span> to know more about me.<br>");
+                sendTextMessage("Hello there 👋🏻,<br><br>My name is <span class='bold'><a class='alink'>Pengcheng Xu</a>.</span><br><br>I am a Computer Engineering Master's student at <span class='bold'>University of Illinois - Urbana Champaign👨🏻‍💻📚</span><br><br>I am eager to hear about potential career opportunities, so I would be pleased to chat about job openings in the science and engineering sphere.<br><br>email: px6@illinois.edu<br>mobile: +1 2175501337<br><br>You can say whatever you like, this chatbox is connected to ChatGPT and know information about Pengcheng and can imitate me. <br><br>Send <span class='bold'>'help'</span> to know more about me.<br>");//linkedin: https://www.linkedin.com/\nin/pengcheng-xu-ryan/<br>
             }, 2000);
             break;
         case "help":
@@ -183,17 +337,18 @@ function waitAndResponce(inputText) {
             clearChat();
             break;
         case "about":
-            sendTextMessage("🛠️💻 This portfolio website is built using HTML, CSS and JavaScript. <br><br>👨🏻‍💻 Refined and Developed by <a class='alink' target='_blank' href='https:\/\/instagram.com/xpc_1025/'><span class='bold'>Pengcheng Xu</a> with ❤️. ChatGPT is it's newly added function.</span>");
+            sendTextMessage("🛠️💻 This portfolio website is built using HTML, CSS and JavaScript. <br><br>👨🏻‍💻 Refined and Developed by <a class='alink' target='_blank' href='https:\/\/instagram.com/xpc_1025/'><span class='bold'>Pengcheng Xu</a> with ❤️. ChatGPT is connected to this website now, which is a newly added function developed by Pengcheng. This chatbot knows Pengcheng's information and will imitate Pengcheng.</span>");
             break;
         case "contact":
             sendTextMessage(contactString);
             break;
         case "projects":
+            //sendTextMessage(githubString);
             sendTextMessage("You want to check my projects? Then just jump into my Github Account.<br><br><div class='social'><a target='_blank' href='https://github.com/explcre'> <div class='socialItem'><img class='socialItemI' src='images/github.svg' alt=''></div> </a></div>");
             break;
-        case "new":
+        /*case "poem":
             sendTextMessage(addressString);
-            break;
+            break;*/
         case "chatgpt":
             let toUseChatGPT=1;
             sendTextMessage("Now chatgpt is connected.");
@@ -204,7 +359,14 @@ function waitAndResponce(inputText) {
                 let prompt = inputText;//"What is the weather like today?"
                 
                 //sendTextMessage(inputText);
+                /*if(globalFirstTime){
+                    var globalTextData={
+                        model: "gpt-3.5-turbo-0301",
+                        messages:[]
+                    };
+                }*/               
                 SendChatGPT(inputText);
+                //if(globalFirstTime){globalFirstTime=false;}
                 /*
                 var model = "text-davinci-003";
                 var temperature = 0.5;
