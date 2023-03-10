@@ -7,7 +7,7 @@ Now it supports ChatGPT!
 I let chatgpt know my information and let it imitate me.
 
 To use chatgpt function by yourself based on this repo,  change the API key in `./script.js`.
-`var OPENAI_API_KEY = "";` lies in around line 23.
+`var OPENAI_API_KEY = "";` lies in around line 29.
 
 You can get the key from https://platform.openai.com/account/api-keys
 
